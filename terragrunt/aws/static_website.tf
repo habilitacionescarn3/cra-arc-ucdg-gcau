@@ -7,7 +7,7 @@ module "website" {
   index_document          = "index.html"
   single_page_app         = false
   is_create_hosted_zone   = true
-  web_acl_id              = aws_wafv2_web_acl.cloudfront_waf.arn
+  web_acl_arn             = aws_wafv2_web_acl.cloudfront_waf.arn
 
   providers = {
     aws           = aws
