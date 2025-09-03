@@ -2,10 +2,10 @@
 # Must be in us-east-1 region for CloudFront
 
 resource "aws_wafv2_web_acl" "cloudfront_waf" {
-  provider = aws.us-east-1
-  name     = "ucdg-cloudfront-waf-${var.env}"
+  provider    = aws.us-east-1
+  name        = "ucdg-cloudfront-waf-${var.env}"
   description = "WAF for UCDG CloudFront distribution with core security rules and rate limiting"
-  scope    = "CLOUDFRONT"
+  scope       = "CLOUDFRONT"
 
   default_action {
     allow {}
@@ -91,9 +91,9 @@ resource "aws_wafv2_web_acl" "cloudfront_waf" {
 
     statement {
       rate_based_statement {
-        limit                   = 400
-        aggregate_key_type      = "IP"
-        evaluation_window_sec   = 60
+        limit                 = 400
+        aggregate_key_type    = "IP"
+        evaluation_window_sec = 60
       }
     }
 
@@ -114,10 +114,4 @@ resource "aws_wafv2_web_acl" "cloudfront_waf" {
     CostCentre = var.billing_code
     Terraform  = "true"
   }
-}
-
-# Output the WAF ACL ARN for use in the module
-output "waf_acl_arn" {
-  description = "The ARN of the WAF ACL for CloudFront"
-  value       = aws_wafv2_web_acl.cloudfront_waf.arn
 }
